@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuario</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
     <div class="login">
         <h1>Editar Gasto</h1>
@@ -14,32 +16,40 @@
                 <label for="monto">Nuevo monto:</label>
                 <input type="text" id="monto" name="monto" value="<%= gasto.monto %>" required>
             </div>
-            
+
             <div class="seccion">
                 <label for="gasto">Nuevo gasto:</label>
                 <input type="gasto" id="gasto" name="gasto" value="<%= gasto.gastos %>">
             </div>
-                
+
             <div class="seccion">
                 <label for="tipo">Tipo:</label>
                 <input type="text" id="tipo" name="tipo" value="<%= gasto.tipo %>">
             </div>
-            
+
             <div class="seccion">
                 <label for="tipoMonto">Tipo monto:</label>
                 <input type="text" id="tipoMonto" name="tipoMonto" value="<%= gasto.tipoMonto %>">
             </div>
-            
+
             <div class="seccion">
                 <label for="comentarios">Comentarios:</label>
                 <input type="text" id="comentarios" name="comentarios" value="<%= gasto.comentarios %>">
             </div>
-            
+            <div class="seccion">
+                <label for="autorizacion">Autorizacion:</label>
+                <input type="radio" id="autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>" checked>
+                <label for="autorizado">Autorizado</label>
+                <input type="radio" id="no_autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>" >
+                <label for="no_autorizacion">No Autorizado</label>
+            </div>
+
             <div class="seccion">
                 <button type="submit">Guardar cambios</button>
             </div>
         </form>
         <a class="cancelar" href="/gastos">Cancelar</a>
     </div>
-    </body>
-    </html>
+</body>
+
+</html>

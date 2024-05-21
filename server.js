@@ -212,7 +212,7 @@ app.post('/users/:id/edit', async (req, res) => {
 });
 app.post('/gastos/:id/edit', async (req, res) => {
     const gastoId = req.params.id;
-    const { monto, gastos, tipo, tipoMonto, comentarios } = req.body;
+    const { monto, gastos, tipo, tipoMonto, comentarios, autorizacion } = req.body;
 
     try {
         // Obtener el usuario existente de la base de datos
@@ -238,6 +238,9 @@ app.post('/gastos/:id/edit', async (req, res) => {
         }
         if (comentarios) {
             updatedData.comentarios = comentarios;
+        }
+        if (autorizacion) {
+            updatedData.autorizacion = autorizacion;
         }
 
         // Actualizar el usuario con los datos actualizados
