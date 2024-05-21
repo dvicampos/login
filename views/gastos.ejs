@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GASTOS</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="centrar">
+
+        <h1>Gastos</h1>
+        <a class="redireccion" href="/users">Usuarios</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Monto</th>
+                    <th>Gasto</th>
+                    <th>Tipo</th>
+                    <th>Tipo monto</th>
+                    <th>Comentarios</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% gastos.forEach(gasto=> { %>
+                    <tr>
+                        <td>
+                            <%= gasto.id %>
+                        </td>
+                        <td>
+                            <%= gasto.monto %>
+                        </td>
+                        <td>
+                            <%= gasto.gastos %>
+                        </td>
+                        <td>
+                            <%= gasto.tipo %>
+                        </td>
+                        <td>
+                            <%= gasto.tipoMonto %>
+                        </td>
+                        <td>
+                            <%= gasto.comentarios %>
+                        </td>
+                        <td>
+                            <form action="/gastos/<%= gasto._id %>/edit" method="GET" style="display: inline;">
+                                <button type="submit">Editar</button>
+                            </form>
+                            <form action="/gastos/<%= gasto._id %>/delete" method="POST" style="display: inline;">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
