@@ -22,6 +22,7 @@
                     <th>Tipo</th>
                     <th>Tipo monto</th>
                     <th>Comentarios</th>
+                    <th>Persistencia</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -47,7 +48,7 @@
                             <%= gasto.comentarios %>
                         </td>
                         <td>
-                            <%= gasto.persistencia >
+                            <%= gasto.persistencia %>
                         </td>
                         <td>
                             <form action="/gastos/<%= gasto._id %>/edit" method="GET" style="display: inline;">
