@@ -47,6 +47,9 @@
                             <%= gasto.comentarios %>
                         </td>
                         <td>
+                            <%= gasto.persistencia >
+                        </td>
+                        <td>
                             <form action="/gastos/<%= gasto._id %>/edit" method="GET" style="display: inline;">
                                 <button type="submit">Editar</button>
                             </form>

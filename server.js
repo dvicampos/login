@@ -27,6 +27,8 @@ const gastoSchema = new mongoose.Schema({
     tipo: String,
     tipoMonto: String,
     comentarios: String,
+    autorizacion: Boolean,
+    persistencia: Boolean
 });
 
 
@@ -197,6 +199,7 @@ app.post('/users/:id/edit', async (req, res) => {
             updatedData.autorizacion = autorizacion;
         }
 
+
         // Actualizar el usuario con los datos actualizados
         const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true });
         if (!updatedUser) {
@@ -212,7 +215,7 @@ app.post('/users/:id/edit', async (req, res) => {
 });
 app.post('/gastos/:id/edit', async (req, res) => {
     const gastoId = req.params.id;
-    const { monto, gastos, tipo, tipoMonto, comentarios, autorizacion } = req.body;
+    const { monto, gastos, tipo, tipoMonto, comentarios, autorizacion, persistencia } = req.body;
 
     try {
         // Obtener el usuario existente de la base de datos
@@ -241,6 +244,9 @@ app.post('/gastos/:id/edit', async (req, res) => {
         }
         if (autorizacion) {
             updatedData.autorizacion = autorizacion;
+        }
+        if(persistencia){
+            updatedData.persistencia = persistencia
         }
 
         // Actualizar el usuario con los datos actualizados
