@@ -36,21 +36,27 @@
                 <label for="comentarios">Comentarios:</label>
                 <input type="text" id="comentarios" name="comentarios" value="<%= gasto.comentarios %>">
             </div>
-            <!-- <div class="seccion">
-                <label for="autorizacion">Autorizacion:</label>
-                <input type="radio" id="autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>" checked>
-                <label for="autorizado">Autorizado</label>
-                <input type="radio" id="no_autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>" >
-                <label for="no_autorizacion">No Autorizado</label>
-            </div> -->
-            <div class="seccion">
-                <label for="autorizacion">Autorizacion:</label>
-                <input type="text" id="autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>">
-            </div>
-            <div class="seccion">
-                <label for="persistencia">persistencia:</label>
-                <input type="text" id="persistencia" name="persistencia" value="<%= gasto.persistencia %>">
-            </div>
+                <!-- <div class="seccion">
+                    <label for="autorizacion">Autorizacion:</label>
+                    <input type="text" id="autorizacion" name="autorizacion" value="<%= gasto.autorizacion %>">
+                </div> -->
+                
+                <div class="seccion">
+                    <label for="autorizacion">Autorización:</label>
+                    <div>
+                        <input type="radio" id="autorizacion1" name="autorizacion" value="true" <% if(gasto.autorizacion === 'si') { %> checked <% } %>>
+                        <label for="autorizacion1">Sí</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="autorizacion2" name="autorizacion" value="false" <% if(gasto.autorizacion === 'no') { %> checked <% } %>>
+                        <label for="autorizacion2">No</label>
+                    </div>
+                </div>
+
+                <div class="seccion">
+                    <label for="persistencia">persistencia:</label>
+                    <input type="text" id="persistencia" name="persistencia" value="<%= gasto.persistencia %>">
+                </div>
             <div class="seccion">
                 <button type="submit">Guardar cambios</button>
             </div>
