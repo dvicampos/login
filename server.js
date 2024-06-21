@@ -27,13 +27,27 @@ const gastoSchema = new mongoose.Schema({
     tipo: String,
     tipoMonto: String,
     comentarios: String,
+});
+
+const contratistaSchema = new mongoose.Schema({
+    obraSeleccionada: String,
+    concepto: String,
+    descripcion: String,
+    subcontratista: String,
+    presupuesto: Number,
+    presupuestoIva: String,
+    presupuestoNoIva: String,
+    soloiva: String,
+    partidas: String,
     autorizacion: Boolean,
     persistencia: Boolean
 });
 
 
+
 const User = mongoose.model('User', UserSchema);
 const Gasto = mongoose.model('Gasto', gastoSchema);
+const Contratista = mongoose.model('Contratista', contratistaSchema);
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -110,6 +124,16 @@ app.get('/gastos', async (req, res) => {
         res.status(500).send('Error al obtener los gastos');
     }
 });
+// Ruta para mostrar la lista de gastos
+app.get('/contratistas', async (req, res) => {
+    try {
+        const contratistas = await Contratista.find();
+        res.render('contratistas', { contratistas });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error al obtener los contratistas');
+    }
+});
 
 // Leer un usuario por su ID
 app.get('/users/:id', async (req, res) => {
@@ -141,6 +165,21 @@ app.get('/gastos/:id', async (req, res) => {
         res.status(500).send('Error al obtener el gasto');
     }
 });
+// Leer un contratista por su ID
+app.get('/contratistas/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const contratista = await Contratista.findById(id);
+        if (!contratista) {
+            return res.status(404).send('contratista no encontrado');
+        }
+        res.send(contratista);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error al obtener el contratista');
+    }
+});
 
 // Middleware para editar un usuario
 app.get('/users/:id/edit', async (req, res) => {
@@ -168,6 +207,20 @@ app.get('/gastos/:id/edit', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send('Error al buscar el gasto');
+    }
+});
+// Middleware para editar un usuario
+app.get('/contratistas/:id/edit', async (req, res) => {
+    const contratistaId = req.params.id;
+    try {
+        const contratista = await Contratista.findById(contratistaId);
+        if (!contratista) {
+            return res.status(404).send('contratista no encontrado');
+        }
+        res.render('editContratista', { contratista });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error al buscar el contratista');
     }
 });
 
@@ -199,7 +252,6 @@ app.post('/users/:id/edit', async (req, res) => {
             updatedData.autorizacion = autorizacion;
         }
 
-
         // Actualizar el usuario con los datos actualizados
         const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true });
         if (!updatedUser) {
@@ -215,7 +267,7 @@ app.post('/users/:id/edit', async (req, res) => {
 });
 app.post('/gastos/:id/edit', async (req, res) => {
     const gastoId = req.params.id;
-    const { monto, gastos, tipo, tipoMonto, comentarios, autorizacion, persistencia } = req.body;
+    const { monto, gastos, tipo, tipoMonto, comentarios } = req.body;
 
     try {
         // Obtener el usuario existente de la base de datos
@@ -242,12 +294,6 @@ app.post('/gastos/:id/edit', async (req, res) => {
         if (comentarios) {
             updatedData.comentarios = comentarios;
         }
-        if (autorizacion) {
-            updatedData.autorizacion = autorizacion;
-        }
-        if(persistencia){
-            updatedData.persistencia = persistencia
-        }
 
         // Actualizar el usuario con los datos actualizados
         const updatedGasto = await Gasto.findByIdAndUpdate(gastoId, updatedData, { new: true });
@@ -260,6 +306,36 @@ app.post('/gastos/:id/edit', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send('Error al actualizar el gastos');
+    }
+});
+app.post('/contratistas/:id/edit', async (req, res) => {
+    const contratistaId = req.params.id;
+    const { autorizacion } = req.body;
+
+    try {
+        // Obtener el usuario existente de la base de datos
+        const contratista = await Contratista.findById(contratistaId);
+        if (!contratista) {
+            return res.status(404).send('contratista no encontrado');
+        }
+
+        // Construir el objeto con los datos actualizados
+        const updatedData = {};
+        if (autorizacion) {
+            updatedData.autorizacion = autorizacion;
+        }
+
+        // Actualizar el usuario con los datos actualizados
+        const updateContratista = await Contratista.findByIdAndUpdate(contratistaId, updatedData, { new: true });
+        if (!updateContratista) {
+            return res.status(404).send('contratista no encontrado');
+        }
+
+        // Redireccionar a la página de lista de usuarios después de la actualización
+        res.redirect('/contratistas');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error al actualizar el contratistas');
     }
 });
 
@@ -279,20 +355,6 @@ app.post('/users/:id/delete', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send('Error al eliminar el usuario');
-    }
-});
-// Eliminar un gastos
-app.post('/gastos/:id/delete', async (req, res) => {
-    const gastoId = req.params.id;
-    try {
-        const deletedGastos = await Gasto.findByIdAndDelete(gastoId);
-        if (!deletedGastos) {
-            return res.status(404).send('Gasto no encontrado');
-        }
-        res.redirect('/gastos');
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Error al eliminar el gastos');
     }
 });
 
