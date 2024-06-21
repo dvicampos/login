@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GASTOS</title>
+</head>
+<body>
+    <h1>Contratsitas</h1>
+    <a href="/users">Usuarios</a>
+    <a href="/gastos">Gastos</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Obra</th>
+                <th>Concepto</th>
+                <th>Descripción</th>
+                <th>Subcontratista</th>
+                <th>Presupuesto</th>
+                <th>Presupuesto con IVA</th>
+                <th>Presupuesto sin IVA</th>
+                <th>IVA</th>
+                <th>Partidas</th>
+                <th>Autorizacion</th>
+                <th>Persistencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% contratistas.forEach(contratista => { %>
+                <tr>
+                    <td><%= contratista.id %></td>
+                    <td><%= contratista.obra %></td>
+                    <td><%= contratista.concepto %></td>
+                    <td><%= contratista.descripcion %></td>
+                    <td><%= contratista.subcontratista %></td>
+                    <td><%= contratista.presupuesto %></td>
+                    <td><%= contratista.presupuestoIva %></td>
+                    <td><%= contratista.presupuestoNoIva %></td>
+                    <td><%= contratista.soloiva %></td>
+                    <td><%= contratista.partidas %></td>
+                    <td><%= contratista.autorizacion %></td>
+                    <td><%= contratista.persistencia %></td>
+                    <td>
+                        <form action="/contratistas/<%= contratista._id %>/edit" method="GET" style="display: inline;">
+                            <button type="submit">Editar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+</body>
+</html>

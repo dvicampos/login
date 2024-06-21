@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Editar Usuario</h1>
+    <form action="/contratistas/<%= contratista._id %>/edit" method="POST">
+        <input type="radio" id="autorizacion" name="autorizacion" value="true">
+        <label for="autorizado">Autorizado</label>
+        <input type="radio" id="no_autorizacion" name="autorizacion" value="false">
+        <label for="no_autorizacion">No Autorizado</label>
+        
+        <button type="submit">Guardar cambios</button>
+    </form>
+    <a href="/contratistas">Cancelar</a>
+</body>
+</html>
